@@ -129,10 +129,9 @@ async function uploadImageToStorage(
       .getPublicUrl(filename);
 
     return urlData.publicUrl;
-  } catch (error) {
+   } catch (error) {
     console.error('Error uploading image:', error);
-    // Return the original data URL as fallback
-    return dataUrl;
+    throw error;
   }
 }
 
