@@ -18,7 +18,10 @@ export async function saveGallery(
     // Upload images to Supabase Storage and replace data URLs with storage URLs
     const photosWithStorageUrls = await Promise.all(
       photos.map(async (photo, index) => {
-        if (photo.url && photo.url.startsWith('data:')) {
+      if (
+  photo.url &&
+  (photo.url.startsWith('data:') || photo.url.startsWith('blob:'))
+) {
           // This is a base64 data URL, upload it to storage
           const imageUrl = await uploadImageToStorage(photo.url, id, index);
           return { ...photo, url: imageUrl };
